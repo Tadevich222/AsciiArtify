@@ -25,7 +25,7 @@ k3d version
 ##  2. Створення Kubernetes-кластеру у k3d
 
 ```bash
-k3d cluster create asciiartify-cluster \
+k3d cluster create agrocd-cluster \
   --servers 1 \
   --agents 1 \
   -p "8080:80@loadbalancer" \
@@ -62,11 +62,12 @@ kubectl get pods -n argocd
 
 ### Переадресація порту:
 ```bash
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+kubectl port-forward svc/argocd-server -n argocd 8081:443
 ```
 
-Інтерфейс доступний за адресою:  
-👉 https://localhost:8080
+Інтерфейс доступний за адресою:
+
+👉 https://127.0.0.1:8081
 
 *(може бути попередження про самопідписаний сертифікат — це нормально)*
 
@@ -75,7 +76,7 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 ##  5. Отримання пароля адміністратора
 
 ```bash
-kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d && echo
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d;echo
 ```
 
 Логін: **admin**  
@@ -90,9 +91,12 @@ ConfigMap:
 kubectl edit configmap argocd-rbac-cm -n argocd
 ```
 
+---
+##  6. Демо запуску та фунціоналу ArgoCD
+
+![Демо запуску ArgoCD](../src/media/chrome_61v3Be19Tj.gif)
 
 ---
-
 
 ## 🔗 Посилання
 Офіційна документація:  
